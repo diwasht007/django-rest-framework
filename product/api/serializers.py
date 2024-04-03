@@ -6,9 +6,11 @@ from ..models import Product, Store, Review
 #         raise serializers.ValidationError("only alphanumeric value are allowed")
 
 class ReviewSerializer(serializers.ModelSerializer):
+      apiuser = serializers.StringRelatedField(read_only=True)
       class Meta:
             model = Review
-            fields = "__all__"
+            exclude = ('product',)
+            # fields = "__all__"
 
 class ProductSerializer(serializers.ModelSerializer):
     discounted_price = serializers.SerializerMethodField()

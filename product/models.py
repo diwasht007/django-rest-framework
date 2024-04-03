@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.contrib.auth.models import User
 
 class Store(models.Model):
     store_name = models.CharField(max_length=50)
@@ -27,6 +28,7 @@ class Product(models.Model):
         return self.product_name
     
 class Review(models.Model):
+    apiuser = models.ForeignKey(User, on_delete=models.CASCADE)
     rating = models.IntegerField(validators=[MaxValueValidator,MinValueValidator])
     comments = models.CharField(max_length=200,null=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE,related_name="Reviews",null=True)
